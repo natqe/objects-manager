@@ -4,7 +4,7 @@
 ### Init Store
 ```javascript
 import { Store } from 'objects-manager'
-// init store
+
 const store = new Store({
     uniqueKey: `id`,
     value: [] // value to start with
