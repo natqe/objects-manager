@@ -14,7 +14,7 @@ const store = new Store({
 + **uniqueKey**
 Represents a unique key that must be on all objects in the store.
 + **value**
-This is the initial value for the store.
+The initial value for the store.
 + **deepMergeArrays (optional)**
 Could be a boolean or an array of strings that represents the path`s inside the object that u want to get this role.
 Make it true or pass a path to an array inside the object that should be updated instead of replaced when using Store.upsert.
