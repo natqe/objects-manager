@@ -1,5 +1,5 @@
 # Objects Manager
-### A simple and powerful library for managing arrays of objects in a maintainable way
+### A tiny and powerful library for managing arrays of objects in a maintainable way
 ## Usage Example
 ### Init Store
 ```javascript
@@ -60,82 +60,17 @@ store.upsert({
 })
 // output [{ firstName: 'Clemens', lastName: 'Harvey', id: 2 }, { firstName: 'Doug', lastName: 'Jones', id: 5 }]
 ```
-### Find items in the store
-```javascript
-// find by property example
-store.find({
-    where: {
-        firstName: 'Kaitlin', // And
-        lastName: 'Keeling'
-    }
-})
-// output [{ firstName: 'Kaitlin', lastName: 'Keeling', id: 3 }]
-
-// "In" operator example
-store.find({
-    where: {
-        firstNameIn: ['Delia', 'Kaitlin']
-    }
-})
-// output [{ firstName: 'Delia', lastName: 'Nolan', id: 1 }, { firstName: 'Kaitlin', lastName: 'Keeling', id: 3 }]
-
-// "LessThan" operator example
-store.find({
-    where: {
-        idLessThan: 2
-    }
-})
-// output [{ firstName: 'Delia', lastName: 'Nolan', id: 1 }]
-```
-**List of all Find Operators**
-+ Not
-+ In
-+ NotIn
-+ Includes
-+ NotIncludes
-+ StartsWith
-+ NotStartsWith
-+ EndsWith
-+ NotEndsWith
-+ Match
-+ NotMatch
-+ LessThan
-+ LessThanOrEqual
-+ MoreThan
-+ MoreThanOrEqual
-### Find Items via custom Callback
-```javascript
-// When you have a custom logic you can put a callback in the where property instead of options
-store.find({
-    where: item => item.id > 2
-})
-```
-### Find with Multiple Where scenarios
-```javascript
-// If you have multiples ways to find the items you can pass an array to the where property
-store.find({
-    where: [
-        { idNot: 2 }, // Or
-        item => item.firstName === `Benny`
-    ]
-})
-```
 ### Delete items from the store
 ```javascript
-// You can use the delete method exactly like you use the find method
+// Pass a callback to determine whether the item should be deleted or not
 // Returns the effected items
-store.delete({
-    where: {
-        firstName: 'Harrison'
-    }
-})
+store.delete(item => item.id === 5)
 // output [{ firstName: 'Harrison', lastName: 'Jones', id: 5 }]
 ```
 ### Clear all items from the store
 ```javascript
-// Use this method to clear all items from the store
-// Returns the effected items (all items)
-store.clear()
+// If you do not pass an callback to the delete method all items will be removed
+store.delete()
 ```
 ## React Usage Example
 ```jsx
@@ -166,15 +101,6 @@ const Example = ()=> {
             })
         },
         []
-    )
-    // Store.find example
-    useEffect(
-        ()=> {
-            // Store.find is a useful helper for finding one or more items inside the store
-            const specialUsers = users.find({ where: { nameIn: ['Benny', 'Harrison'] } })
-            console.log(specialUsers.length) // output 2
-        },
-        [users.value]
     )
     return (
         <ul>

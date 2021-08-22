@@ -1,6 +1,5 @@
 import fastDeepEqual from "fast-deep-equal"
 import get from "lodash-es/get"
-import isFunction from 'lodash-es/isFunction'
 import mergeWith from 'lodash-es/mergeWith'
 import uniqWith from 'lodash-es/uniqWith'
 import { cloneDeep } from "./clone-deep"
@@ -10,30 +9,6 @@ export type StoreOptions<T, K extends keyof T> = {
     uniqueKey: K
     value: ReadonlyArray<T>
     deepMergeArrays?: boolean | Array<string>
-}
-
-type ValueByOptions<T> = { [K in keyof T]?: T[K] }
-    & { [K in keyof T & string as `${K}Not`]?: T[K] }
-    & { [K in keyof T & string as `${K}In`]?: ReadonlyArray<T[K]> | T[K] }
-    & { [K in keyof T & string as `${K}NotIn`]?: ReadonlyArray<T[K]> | T[K] }
-    & { [K in keyof T & string as `${K}Includes`]?: T[K] extends Array<any> ? T[K][0] : T[K] extends string ? T[K] : any }
-    & { [K in keyof T & string as `${K}NotIncludes`]?: T[K] extends Array<any> ? T[K][0] : T[K] extends string ? T[K] : any }
-    & { [K in keyof T & string as `${K}StartsWith`]?: T[K] }
-    & { [K in keyof T & string as `${K}NotStartsWith`]?: T[K] }
-    & { [K in keyof T & string as `${K}EndsWith`]?: T[K] }
-    & { [K in keyof T & string as `${K}NotEndsWith`]?: T[K] }
-    & { [K in keyof T & string as `${K}Match`]?: RegExp }
-    & { [K in keyof T & string as `${K}NotMatch`]?: RegExp }
-    & { [K in keyof T & string as `${K}LessThan`]?: T[K] }
-    & { [K in keyof T & string as `${K}LessThanOrEqual`]?: T[K] }
-    & { [K in keyof T & string as `${K}MoreThan`]?: T[K] }
-    & { [K in keyof T & string as `${K}MoreThanOrEqual`]?: T[K] }
-    | ((item: T) => boolean)
-
-type ValueByMultipleOptions<T> = { [key: number]: ValueByOptions<T> } & ReadonlyArray<ValueByOptions<T>>
-
-type FindOptions<T> = {
-    where: ValueByMultipleOptions<T> | ValueByOptions<T>
 }
 
 type UpsertOptions<T, K extends keyof T> = {
@@ -69,36 +44,9 @@ export class Store<T, K extends keyof T> {
         const effected = value.map(i => this.value.find(v => v[this.options.uniqueKey] === i[this.options.uniqueKey]))
         return effected
     }
-    find(options: FindOptions<T>) {
-        const where: ValueByMultipleOptions<T> = Array.isArray(options.where) ? options.where : [options.where]
-        return this.value.filter(i => where.some(condition => isFunction(condition) ? condition(i) : Object.entries(condition).every(([key, value]) => {
-            if (key in i) return i[key] === value
-            const getValue = (operator: string) => i[key.substring(0, key.lastIndexOf(operator))]
-            if (key.endsWith(`Not`)) return getValue(`Not`) !== value
-            if (key.endsWith(`NotIn`)) return !(value as Array<any>).includes(getValue(`NotIn`))
-            if (key.endsWith(`In`)) return (value as Array<any>).includes(getValue(`In`))
-            if (key.endsWith(`NotStartsWith`)) return !getValue(`NotStartsWith`)?.startsWith(value)
-            if (key.endsWith(`StartsWith`)) return getValue(`StartsWith`)?.startsWith(value)
-            if (key.endsWith(`NotEndsWith`)) return !getValue(`NotEndsWith`)?.endsWith(value)
-            if (key.endsWith(`EndsWith`)) return getValue(`EndsWith`)?.endsWith(value)
-            if (key.endsWith(`NotIncludes`)) return !getValue(`NotIncludes`)?.includes(value)
-            if (key.endsWith(`Includes`)) return getValue(`Includes`)?.includes(value)
-            if (key.endsWith(`NotMatch`)) return !getValue(`NotMatch`)?.match(value)
-            if (key.endsWith(`Match`)) return getValue(`Match`)?.match(value)
-            if (key.endsWith(`LessThan`)) return (getValue(`LessThan`) ?? 0) < value
-            if (key.endsWith(`LessThanOrEqual`)) return (getValue(`LessThanOrEqual`) ?? 0) <= value
-            if (key.endsWith(`MoreThan`)) return (getValue(`MoreThan`) ?? 0) > value
-            if (key.endsWith(`MoreThanOrEqual`)) return (getValue(`MoreThanOrEqual`) ?? 0) >= value
-        })))
-    }
-    delete(options: FindOptions<T>) {
-        let effected = this.find(options)
-        this.dispatch(this.value.filter(i => !effected.includes(i)))
-        return effected
-    }
-    clear() {
-        const effected = this.value
-        this.dispatch([])
+    delete(predicate?: Parameters<ReadonlyArray<T>['filter']>[0]) {
+        let effected = predicate ? this.value.filter(predicate): this.value
+        this.dispatch(predicate ? this.value.filter(i => !effected.includes(i)): [])
         return effected
     }
     subscribe(subscriber: (value: this['value']) => void) {
