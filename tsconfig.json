@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "sourceMap": true,
+    "outDir": "./build",
+    "sourceRoot": "../../node_modules/objects-manager/src",
+    "declaration": true,
+    "removeComments": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+  },
+  "include": [
+    "src"
+  ]
+}
