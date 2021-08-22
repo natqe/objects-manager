@@ -65,7 +65,8 @@ store.upsert({
 // find by property example
 store.find({
     where: {
-        firstName: 'Kaitlin'
+        firstName: 'Kaitlin', // And
+        lastName: 'Keeling'
     }
 })
 // output [{ firstName: 'Kaitlin', lastName: 'Keeling', id: 3 }]
@@ -111,10 +112,10 @@ store.find({
 ```
 ### Find with Multiple Where scenarios
 ```javascript
-// If you have multiples ways to find the items you can path an array to the where property
+// If you have multiples ways to find the items you can pass an array to the where property
 store.find({
     where: [
-        { idNot: 2 },
+        { idNot: 2 }, // Or
         item => item.firstName === `Benny`
     ]
 })
