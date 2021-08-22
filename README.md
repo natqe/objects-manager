@@ -105,7 +105,7 @@ store.find({
 ```
 ### Find with Multiple Where scenarios
 ```javascript
-// If you have multiples ways to find items you can path an array to the where property
+// If you have multiples ways to find the items you can path an array to the where property
 store.find({
     where: [
         { idNot: 2 },
