@@ -41,23 +41,21 @@ store.unsubscribe(onValueChange)
 ```javascript
 // Insert new items to the store
 // Returns the effected items
-store.upsert({
-    value: [
-        // example list
-        { firstName: 'Delia', lastName: 'Nolan', id: 1 },
-        { firstName: 'Clemens', lastName: 'Carter', id: 2 },
-        { firstName: 'Kaitlin', lastName: 'Keeling', id: 3 },
-        { firstName: 'Benny', lastName: 'Gibson', id: 4 },
-        { firstName: 'Harrison', lastName: 'Jones', id: 5 },
-    ]
-})
+store.upsert([
+    // example list
+    { firstName: 'Delia', lastName: 'Nolan', id: 1 },
+    { firstName: 'Clemens', lastName: 'Carter', id: 2 },
+    { firstName: 'Kaitlin', lastName: 'Keeling', id: 3 },
+    { firstName: 'Benny', lastName: 'Gibson', id: 4 },
+    { firstName: 'Harrison', lastName: 'Jones', id: 5 },
+])
+// You can also put in a single item
+store.upsert({ firstName: 'Nathan', lastName: 'Olson', id: 6 })
 // Update items example
-store.upsert({
-    value: [
-        { id: 2, lastName: 'Harvey'},
-        { id: 5, firstName: 'Doug' }
-    ]
-})
+store.upsert([
+    { id: 2, lastName: 'Harvey'},
+    { id: 5, firstName: 'Doug' }
+])
 // output [{ firstName: 'Clemens', lastName: 'Harvey', id: 2 }, { firstName: 'Doug', lastName: 'Jones', id: 5 }]
 ```
 ### Delete items from the store
@@ -90,15 +88,13 @@ const Example = ()=> {
     // In usual should take a place after some call to an api
     useEffect(
         ()=> {
-            users.upsert({
-                value: [
-                    { name: 'Delia', id: 1 },
-                    { name: 'Clemens', id: 2 },
-                    { name: 'Kaitlin', id: 3 },
-                    { name: 'Benny', id: 4 },
-                    { name: 'Harrison', id: 5 },
-                ]
-            })
+            users.upsert([
+                { name: 'Delia', id: 1 },
+                { name: 'Clemens', id: 2 },
+                { name: 'Kaitlin', id: 3 },
+                { name: 'Benny', id: 4 },
+                { name: 'Harrison', id: 5 },
+            ])
         },
         []
     )

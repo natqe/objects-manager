@@ -11,10 +11,6 @@ export type StoreOptions<T, K extends keyof T> = {
     deepMergeArrays?: boolean | Array<string>
 }
 
-type UpsertOptions<T, K extends keyof T> = {
-    value: ReadonlyArray<T> | ReadonlyArray<Partial<T> & Required<Pick<T, K>>>
-}
-
 export class Store<T, K extends keyof T> {
     readonly value: ReadonlyArray<T>
     constructor(private readonly options: StoreOptions<T, K>) {
@@ -28,8 +24,9 @@ export class Store<T, K extends keyof T> {
             for (const subscriber of this.subscribers) subscriber(this.value)
         }
     }
-    upsert(options: UpsertOptions<T, K>) {
-        const { value } = options
+    upsert(value: T | Partial<T> & Required<Pick<T, K>> | ReadonlyArray<T> | ReadonlyArray<Partial<T> & Required<Pick<T, K>>>) {
+        if(!Array.isArray(value)) value = [value] as any
+        value = value as ReadonlyArray<T>
         const newState = cloneDeep(this.value) as Array<T>
         for (const item of value) {
             const index = newState.findIndex(({ [this.options.uniqueKey]: _id }) => _id === item[this.options.uniqueKey])
@@ -45,8 +42,8 @@ export class Store<T, K extends keyof T> {
         return effected
     }
     delete(predicate?: Parameters<ReadonlyArray<T>['filter']>[0]) {
-        let effected = predicate ? this.value.filter(predicate): this.value
-        this.dispatch(predicate ? this.value.filter(i => !effected.includes(i)): [])
+        let effected = predicate ? this.value.filter(predicate) : this.value
+        this.dispatch(predicate ? this.value.filter(i => !effected.includes(i)) : [])
         return effected
     }
     subscribe(subscriber: (value: this['value']) => void) {
