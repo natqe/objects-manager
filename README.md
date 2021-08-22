@@ -6,7 +6,7 @@
 import { Store } from 'objects-manager'
 
 const store = new Store({
-    uniqueKey: `id`,
+    uniqueKey: 'id',
     value: [] // value to start with
 })
 ```
@@ -91,7 +91,7 @@ import { useStore } from 'objects-manager/react'
 const Example = ()=> {
     // init store
     const users = useStore(()=> ({
-        uniqueKey: `id`,
+        uniqueKey: 'id',
         value: []
     }))
     // log when value changed
