@@ -99,8 +99,8 @@ const Example = ()=> {
         ()=> console.log(`Value Changed`),
         [users.value]
     )
-    // insert new items
-    // usual should take a place after some call to an api
+    // Insert new items
+    // In usual should take a place after some call to an api
     useEffect(
         ()=> {
             users.upsert({
