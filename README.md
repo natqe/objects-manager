@@ -66,7 +66,7 @@ store.find({
 })
 // output [{ firstName: 'Delia', lastName: 'Nolan', id: 1 }]
 ```
-> ### List of all Find Operators
+**List of all Find Operators**
 + Not
 + In
 + NotIn
