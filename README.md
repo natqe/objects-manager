@@ -17,6 +17,7 @@ const subscription = store.subscribe(value => console.log(value.length))
 // Unsubscribe from an subscription if no needed anymore
 subscription.unsubscribe()
 ```
+**NOTE:** Store.value cannot be mutated directly.
 ### Update or Insert items
 ```javascript
 // Insert new items to the store
