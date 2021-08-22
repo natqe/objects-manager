@@ -92,6 +92,12 @@ store.find({
 + NotIn
 + Includes
 + NotIncludes
++ StartsWith
++ NotStartsWith
++ EndsWith
++ NotEndsWith
++ Match
++ NotMatch
 + LessThan
 + LessThanOrEqual
 + MoreThan

@@ -18,6 +18,12 @@ type ValueByOptions<T> = { [K in keyof T]?: T[K] }
     & { [K in keyof T & string as `${K}NotIn`]?: ReadonlyArray<T[K]> | T[K] }
     & { [K in keyof T & string as `${K}Includes`]?: T[K] extends Array<any> ? T[K][0] : T[K] extends string ? T[K] : any }
     & { [K in keyof T & string as `${K}NotIncludes`]?: T[K] extends Array<any> ? T[K][0] : T[K] extends string ? T[K] : any }
+    & { [K in keyof T & string as `${K}StartsWith`]?: T[K] }
+    & { [K in keyof T & string as `${K}NotStartsWith`]?: T[K] }
+    & { [K in keyof T & string as `${K}EndsWith`]?: T[K] }
+    & { [K in keyof T & string as `${K}NotEndsWith`]?: T[K] }
+    & { [K in keyof T & string as `${K}Match`]?: RegExp }
+    & { [K in keyof T & string as `${K}NotMatch`]?: RegExp }
     & { [K in keyof T & string as `${K}LessThan`]?: T[K] }
     & { [K in keyof T & string as `${K}LessThanOrEqual`]?: T[K] }
     & { [K in keyof T & string as `${K}MoreThan`]?: T[K] }
@@ -71,8 +77,14 @@ export class Store<T, K extends keyof T> {
             if (key.endsWith(`Not`)) return getValue(`Not`) !== value
             if (key.endsWith(`NotIn`)) return !(value as Array<any>).includes(getValue(`NotIn`))
             if (key.endsWith(`In`)) return (value as Array<any>).includes(getValue(`In`))
+            if (key.endsWith(`NotStartsWith`)) return !getValue(`NotStartsWith`)?.startsWith(value)
+            if (key.endsWith(`StartsWith`)) return getValue(`StartsWith`)?.startsWith(value)
+            if (key.endsWith(`NotEndsWith`)) return !getValue(`NotEndsWith`)?.endsWith(value)
+            if (key.endsWith(`EndsWith`)) return getValue(`EndsWith`)?.endsWith(value)
             if (key.endsWith(`NotIncludes`)) return !getValue(`NotIncludes`)?.includes(value)
-            if (key.endsWith(`Includes`)) return !!getValue(`Includes`)?.includes(value)
+            if (key.endsWith(`Includes`)) return getValue(`Includes`)?.includes(value)
+            if (key.endsWith(`NotMatch`)) return !getValue(`NotMatch`)?.match(value)
+            if (key.endsWith(`Match`)) return getValue(`Match`)?.match(value)
             if (key.endsWith(`LessThan`)) return (getValue(`LessThan`) ?? 0) < value
             if (key.endsWith(`LessThanOrEqual`)) return (getValue(`LessThanOrEqual`) ?? 0) <= value
             if (key.endsWith(`MoreThan`)) return (getValue(`MoreThan`) ?? 0) > value
