@@ -1,7 +1,7 @@
 {
   "name": "objects-manager",
   "description": "A simple and powerful library for managing arrays of objects in a maintainable way",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "main": "index.js",
   "private": false,
   "keywords": [],
