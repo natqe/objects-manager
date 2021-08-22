@@ -7,7 +7,7 @@ import { Store } from 'objects-manager'
 // init store
 const store = new Store({
     uniqueKey: `id`,
-    value: []
+    value: [] // value to start with
 })
 ```
 ### Subscribe to changes
@@ -92,7 +92,7 @@ const Example = ()=> {
     // init store
     const users = useStore(()=> ({
         uniqueKey: `id`,
-        value: [] // value to start with
+        value: []
     }))
     // log when value changed
     useEffect(
