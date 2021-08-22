@@ -119,7 +119,7 @@ store.delete({
 })
 // output [{ firstName: 'Harrison', lastName: 'Jones', id: 5 }]
 ```
-### Clear Store from all items
+### Clear all items from the store
 ```javascript
 // Use this method to clear all items from the store
 // Returns the effected items (all items)
