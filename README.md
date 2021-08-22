@@ -126,7 +126,7 @@ const Example = ()=> {
     )
     return (
         <ul>
-            {users.value.map((user, index) => <li key={index}>{user.name}</li>)}
+            {users.value.map(user => <li key={user.id}>{user.name}</li>)}
         </ul>
     )
 }
