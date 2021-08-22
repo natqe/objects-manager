@@ -18,6 +18,12 @@ The initial value for the store.
 + **deepMergeArrays (optional) -**
 Could be a boolean or an array of strings that represents path`s to arrays inside individual object.
 Make it true or pass a path to an array inside the object that should be updated instead of replaced when using Store.upsert.
+### Use Store Value
+```javascript
+// You have access to the store items via the store value property
+store.value.forEach(item => console.log(item))
+```
+**NOTE:** Store.value cannot be mutated directly.
 ### Subscribe to changes
 ```javascript
 const onValueChange = value => {/* Do something with the value*/}
@@ -31,7 +37,6 @@ subscription.unsubscribe()
 // Pass the subscription handler as a parameter
 store.unsubscribe(onValueChange)
 ```
-**NOTE:** Store.value cannot be mutated directly.
 ### Update or Insert items
 ```javascript
 // Insert new items to the store
@@ -100,7 +105,7 @@ store.find({
 ```
 ### Find with Multiple Where scenarios
 ```javascript
-// If you have multiples ways to find items you can path array to the where property
+// If you have multiples ways to find items you can path an array to the where property
 store.find({
     where: [
         { idNot: 2 },
