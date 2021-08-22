@@ -13,7 +13,7 @@ const store = new Store({
 ### Subscribe to changes
 ```javascript
 // log when value changed
-const subscription = store.subscribe(value => console.log(`I have ${store.value.length} items`))
+const subscription = store.subscribe(value => console.log(value.length))
 // Unsubscribe from an subscription if no needed anymore
 subscription.unsubscribe()
 ```
