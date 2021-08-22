@@ -1,7 +1,7 @@
 {
   "name": "objects-manager",
   "description": "",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
   "private": false,
   "keywords": [],
