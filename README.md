@@ -16,19 +16,26 @@ Represents a unique key that must be on all objects in the store.
 + **value -**
 The initial value for the store.
 + **deepMergeArrays (optional) -**
-Could be a boolean or an array of strings that represents the path`s inside the object that u want to get this role.
+Could be a boolean or an array of strings that represents path`s to arrays inside individual object.
 Make it true or pass a path to an array inside the object that should be updated instead of replaced when using Store.upsert.
 ### Subscribe to changes
 ```javascript
-// log when value changed
-const subscription = store.subscribe(value => console.log(value.length))
-// Unsubscribe from an subscription if no needed anymore
+const onValueChange = value => {/* Do something with the value*/}
+const subscription = store.subscribe(onValueChange)
+```
+### Unsubscribe from a previous subscription
+```javascript
+// Use the unsubscribe method on the subscription object
 subscription.unsubscribe()
+// Alternatively you can use Store.unsubscribe method instead
+// Pass the subscription handler as a parameter
+store.unsubscribe(onValueChange)
 ```
 **NOTE:** Store.value cannot be mutated directly.
 ### Update or Insert items
 ```javascript
 // Insert new items to the store
+// Returns the effected items
 store.upsert({
     value: [
         // example list
@@ -84,14 +91,39 @@ store.find({
 + LessThanOrEqual
 + MoreThan
 + MoreThanOrEqual
-## Delete items
+### Find Items via custom Callback
 ```javascript
+// When you have a custom logic you can put a callback in the where property instead of options
+store.find({
+    where: item => item.id > 2
+})
+```
+### Find with Multiple Where scenarios
+```javascript
+// If you have multiples ways to find items you can path array to the where property
+store.find({
+    where: [
+        { idNot: 2 },
+        item => item.firstName === `Benny`
+    ]
+})
+```
+### Delete items from the store
+```javascript
+// You can use the delete method exactly like you use the find method
+// Returns the effected items
 store.delete({
     where: {
         firstName: 'Harrison'
     }
 })
 // output [{ firstName: 'Harrison', lastName: 'Jones', id: 5 }]
+```
+### Clear Store from all items
+```javascript
+// Use this method to clear all items from the store
+// Returns the effected items (all items)
+store.clear()
 ```
 ## React Usage Example
 ```jsx
