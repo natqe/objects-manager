@@ -7,7 +7,9 @@ type Immutable<T> = {
     readonly [K in keyof T]: T[K] extends object ? Immutable<T[K]>: T[K]
 }
 
-type Value<T, K extends keyof T> = ReadonlyArray<Immutable<T> & Immutable<Required<Pick<T, K>>>>
+type Item<T, K extends keyof T> = T & Immutable<T> & Required<Pick<T, K>> & Immutable<Required<Pick<T, K>>>
+
+type Value<T, K extends keyof T> = ReadonlyArray<Item<T, K>>
 
 export type StoreOptions<T, K extends keyof T> = {
     uniqueKey: K
@@ -22,7 +24,7 @@ export class Store<T, K extends keyof T> {
     }
     private readonly subscribers = Array<((value: Value<T, K>) => void)>()
     get value() {
-        return this._value as Value<T, K>
+        return this._value
     }
     private dispatch(newState: Value<T, K>) {
         if (!fastDeepEqual(this.value, newState)) {
@@ -30,9 +32,9 @@ export class Store<T, K extends keyof T> {
             for (const subscriber of this.subscribers) subscriber(this.value)
         }
     }
-    upsert(value: Immutable<Partial<T>> & Immutable<Required<Pick<T, K>>> | ReadonlyArray<Immutable<Partial<T>> & Immutable<Required<Pick<T, K>>>>) {
+    upsert(value: Partial<Item<T, K>> & Required<Pick<Item<T, K>, K>> | ReadonlyArray<Partial<Item<T, K>> & Required<Pick<Item<T, K>, K>>>) {
         value = castArray(value)
-        const newState = cloneDeep(this.value) as Array<Immutable<T> & Immutable<Required<Pick<T, K>>>>
+        const newState = cloneDeep(this.value) as Array<Item<T, K>>
         for (const item of value) {
             const index = newState.findIndex(({ [this.options.uniqueKey]: _id }) => _id === item[this.options.uniqueKey] as any)
             const pathsToMerge = index !== -1 && Array.isArray(this.options.deepMergeArrays) ? this.options.deepMergeArrays.map(path => get(newState[index], path)) : []
@@ -40,7 +42,7 @@ export class Store<T, K extends keyof T> {
                 mergeWith(newState[index], item, (a, b) => {
                     if (Array.isArray(a) && Array.isArray(b) && (this.options.deepMergeArrays === true || pathsToMerge.includes(a))) return uniqWith([...a, ...b], fastDeepEqual)
                 }) :
-                newState.push(item as Immutable<T> & Immutable<Required<Pick<T, K>>>)
+                newState.push(item as any)
         }
         this.dispatch(newState)
         const effected = value.map(i => this.value.find(v => v[this.options.uniqueKey] === i[this.options.uniqueKey] as any))
