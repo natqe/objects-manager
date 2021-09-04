@@ -15,24 +15,17 @@ test(`Store.value cannot be mutated`, () => {
     //@ts-expect-error
     expect(() => store.value[0].id = 2).toThrowError()
 })
-test(`Subscribe to changes`, done => {
-    let count = 0
-    const { unsubscribe } = store.subscribe(value => {
-        if (++count > 1) {
-            expect(value).toBeDefined()
-            done()
-        }
-    })
-    store.upsert({ id: 1 })
-    store.delete()
+test(`Subscribe to changes`, () => {
+    let value: typeof store['value']
+    const { unsubscribe } = store.subscribe(v => value = v)
+    expect(value).toBeDefined()
     unsubscribe()
 })
 test(`Unsubscribe from changes`, () => {
     let count = 0
     const { unsubscribe } = store.subscribe(() => ++count)
-    store.upsert({ id: 1 })
     unsubscribe()
-    store.delete(i => i.id === 2)
+    store.upsert({ id: 1 })
     expect(count).toBe(1)
     // unsubscribe doesn't do any when non subscriber handler passes
     const fakeHandler = jest.fn()

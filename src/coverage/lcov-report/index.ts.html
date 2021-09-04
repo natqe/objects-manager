@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>39/39</span>
+                <span class='fraction'>41/41</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>30/30</span>
+                <span class='fraction'>32/32</span>
             </div>
         
             
@@ -118,10 +118,22 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,36 +152,40 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">96x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">33x</span>
-<span class="cline-any cline-yes">27x</span>
-<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
-<span class="cline-any cline-yes">23x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -185,33 +201,40 @@ import { cloneDeep } from "./clone-deep"
 import { deepFreeze } from "./deep-freeze"
 &nbsp;
 type Immutable&lt;T&gt; = {
-    readonly [K in keyof T]: T[K] extends object ? Immutable&lt;T[K]&gt;: T[K]
+    readonly [K in keyof T]: T[K] extends object ? Immutable&lt;T[K]&gt; : T[K]
 }
 &nbsp;
-export type StoreOptions&lt;T, K extends keyof Immutable&lt;T&gt;&gt; = {
+type Item&lt;T, K extends keyof T&gt; = T &amp; Immutable&lt;T&gt; &amp; Required&lt;Pick&lt;T, K&gt;&gt; &amp; Immutable&lt;Required&lt;Pick&lt;T, K&gt;&gt;&gt;
+&nbsp;
+type Value&lt;T, K extends keyof T&gt; = ReadonlyArray&lt;Item&lt;T, K&gt;&gt;
+&nbsp;
+export type StoreOptions&lt;T, K extends keyof T&gt; = {
     uniqueKey: K
-    value: ReadonlyArray&lt;Immutable&lt;T&gt;&gt;
+    value: Value&lt;T, K&gt;
     deepMergeArrays?: boolean | Array&lt;string&gt;
 }
 &nbsp;
-export class Store&lt;T, K extends keyof Immutable&lt;T&gt;&gt; {
-    private _value: ReadonlyArray&lt;Immutable&lt;T&gt;&gt;
+export class Store&lt;T, K extends keyof T&gt; {
+    private _value: Value&lt;T, K&gt;
     constructor(private readonly options: StoreOptions&lt;T, K&gt;) {
         this.dispatch(options.value)
     }
-    private readonly subscribers = Array&lt;((value: ReadonlyArray&lt;Immutable&lt;T&gt;&gt;) =&gt; void)&gt;()
+    private readonly subscribers = Array&lt;((value: Value&lt;T, K&gt;) =&gt; void)&gt;()
     get value() {
-        return this._value as ReadonlyArray&lt;Immutable&lt;T&gt;&gt;
+        return this._value
     }
-    private dispatch(newState: ReadonlyArray&lt;Immutable&lt;T&gt;&gt;) {
+    private updateSubscription(subscriber: (value: Value&lt;T, K&gt;) =&gt; void) {
+        subscriber(this.value)
+    }
+    private dispatch(newState: Value&lt;T, K&gt;) {
         if (!fastDeepEqual(this.value, newState)) {
             this._value = newState.length ? deepFreeze(newState) : Object.freeze(newState)
-            for (const subscriber of this.subscribers) subscriber(this.value)
+            for (const subscriber of this.subscribers) this.updateSubscription(subscriber)
         }
     }
-    upsert(value: Partial&lt;Immutable&lt;T&gt;&gt; &amp; Required&lt;Pick&lt;Immutable&lt;T&gt;, K&gt;&gt; | ReadonlyArray&lt;Partial&lt;Immutable&lt;T&gt;&gt; &amp; Required&lt;Pick&lt;Immutable&lt;T&gt;, K&gt;&gt;&gt;) {
+    upsert(value: Partial&lt;Item&lt;T, K&gt;&gt; &amp; Required&lt;Pick&lt;Item&lt;T, K&gt;, K&gt;&gt; | ReadonlyArray&lt;Partial&lt;Item&lt;T, K&gt;&gt; &amp; Required&lt;Pick&lt;Item&lt;T, K&gt;, K&gt;&gt;&gt;) {
         value = castArray(value)
-        const newState = cloneDeep(this.value) as Array&lt;Immutable&lt;T&gt;&gt;
+        const newState = cloneDeep(this.value) as Array&lt;Item&lt;T, K&gt;&gt;
         for (const item of value) {
             const index = newState.findIndex(({ [this.options.uniqueKey]: _id }) =&gt; _id === item[this.options.uniqueKey] as any)
             const pathsToMerge = index !== -1 &amp;&amp; Array.isArray(this.options.deepMergeArrays) ? this.options.deepMergeArrays.map(path =&gt; get(newState[index], path)) : []
@@ -219,24 +242,25 @@ export class Store&lt;T, K extends keyof Immutable&lt;T&gt;&gt; {
                 mergeWith(newState[index], item, (a, b) =&gt; {
                     if (Array.isArray(a) &amp;&amp; Array.isArray(b) &amp;&amp; (this.options.deepMergeArrays === true || pathsToMerge.includes(a))) return uniqWith([...a, ...b], fastDeepEqual)
                 }) :
-                newState.push(item as Immutable&lt;T&gt;)
+                newState.push(item as any)
         }
         this.dispatch(newState)
         const effected = value.map(i =&gt; this.value.find(v =&gt; v[this.options.uniqueKey] === i[this.options.uniqueKey] as any))
         return effected
     }
-    delete(predicate?: Parameters&lt;ReadonlyArray&lt;Immutable&lt;T&gt;&gt;['filter']&gt;[0]) {
+    delete(predicate?: Parameters&lt;Value&lt;T, K&gt;['filter']&gt;[0]) {
         let effected = predicate ? this.value.filter(predicate) : this.value
         this.dispatch(predicate ? this.value.filter(i =&gt; !effected.includes(i)) : [])
         return effected
     }
-    subscribe(subscriber: (value: ReadonlyArray&lt;Immutable&lt;T&gt;&gt;) =&gt; void) {
+    subscribe(subscriber: (value: Value&lt;T, K&gt;) =&gt; void) {
         this.subscribers.push(subscriber)
+        this.updateSubscription(subscriber)
         return {
             unsubscribe: () =&gt; this.unsubscribe(subscriber)
         }
     }
-    unsubscribe(subscriber: (value: ReadonlyArray&lt;Immutable&lt;T&gt;&gt;) =&gt; void) {
+    unsubscribe(subscriber: (value: Value&lt;T, K&gt;) =&gt; void) {
         const index = this.subscribers.findIndex(i =&gt; i === subscriber)
         if (index !== -1) this.subscribers.splice(index, 1)
     }
@@ -247,7 +271,7 @@ export class Store&lt;T, K extends keyof Immutable&lt;T&gt;&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 23 2021 21:52:39 GMT+0300 (שעון ישראל (קיץ))
+                at Sun Sep 05 2021 00:33:12 GMT+0300 (שעון ישראל (קיץ))
             </div>
         </div>
         <script src="prettify.js"></script>
