@@ -4,7 +4,7 @@ import { cloneDeep } from "./clone-deep"
 import { deepFreeze } from "./deep-freeze"
 
 type Immutable<T> = {
-    readonly [K in keyof T]: T[K] extends object ? Immutable<T[K]>: T[K]
+    readonly [K in keyof T]: T[K] extends object ? Immutable<T[K]> : T[K]
 }
 
 type Item<T, K extends keyof T> = T & Immutable<T> & Required<Pick<T, K>> & Immutable<Required<Pick<T, K>>>
@@ -26,10 +26,13 @@ export class Store<T, K extends keyof T> {
     get value() {
         return this._value
     }
+    private updateSubscription(subscriber: (value: Value<T, K>) => void) {
+        subscriber(this.value)
+    }
     private dispatch(newState: Value<T, K>) {
         if (!fastDeepEqual(this.value, newState)) {
             this._value = newState.length ? deepFreeze(newState) : Object.freeze(newState)
-            for (const subscriber of this.subscribers) subscriber(this.value)
+            for (const subscriber of this.subscribers) this.updateSubscription(subscriber)
         }
     }
     upsert(value: Partial<Item<T, K>> & Required<Pick<Item<T, K>, K>> | ReadonlyArray<Partial<Item<T, K>> & Required<Pick<Item<T, K>, K>>>) {
@@ -55,6 +58,7 @@ export class Store<T, K extends keyof T> {
     }
     subscribe(subscriber: (value: Value<T, K>) => void) {
         this.subscribers.push(subscriber)
+        this.updateSubscription(subscriber)
         return {
             unsubscribe: () => this.unsubscribe(subscriber)
         }

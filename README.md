@@ -24,10 +24,11 @@ Make it true or pass a path to an array inside the object that should be updated
 store.value.forEach(item => console.log(item))
 ```
 **NOTE:** Store.value cannot be mutated directly.
-### Subscribe to changes
+### Subscribe to value
 ```javascript
-const onValueChange = value => {/* Do something with the value*/}
-const subscription = store.subscribe(onValueChange)
+const onValue = value => {/* Do something with the value*/}
+const subscription = store.subscribe(onValue)
+// It will run on initial and when the value changes.
 ```
 ### Unsubscribe from a previous subscription
 ```javascript
@@ -35,7 +36,7 @@ const subscription = store.subscribe(onValueChange)
 subscription.unsubscribe()
 // Alternatively you can use Store.unsubscribe method instead
 // Pass the subscription handler as a parameter
-store.unsubscribe(onValueChange)
+store.unsubscribe(onValue)
 ```
 ### Update or Insert items
 ```javascript

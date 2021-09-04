@@ -1,4 +1,4 @@
-import { useState, useDebugValue, useLayoutEffect, useReducer } from "react"
+import { useDebugValue, useLayoutEffect, useReducer, useState } from "react"
 import { Store, StoreOptions } from "./index"
 
 export const useStore = <T, K extends keyof T>(initialState: () => StoreOptions<T, K>) => {
@@ -6,7 +6,8 @@ export const useStore = <T, K extends keyof T>(initialState: () => StoreOptions<
     const [store] = useState(() => new Store(initialState()))
     useLayoutEffect(
         () => {
-            const { unsubscribe } = store.subscribe(() => dispatch())
+            let init: boolean
+            const { unsubscribe } = store.subscribe(() => init ? dispatch() : init = true)
             return unsubscribe
         },
         []
