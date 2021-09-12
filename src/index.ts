@@ -1,7 +1,6 @@
 import * as fastDeepEqual from "fast-deep-equal"
 import { get, mergeWith, uniqWith, castArray } from "lodash-es"
-import { cloneDeep } from "./clone-deep"
-import { deepFreeze } from "./deep-freeze"
+import { cloneDeep, deepFreeze } from "./common/index"
 
 type Immutable<T> = {
     readonly [K in keyof T]: T[K] extends object ? Immutable<T[K]> : T[K]

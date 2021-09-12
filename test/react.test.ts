@@ -1,6 +1,6 @@
 import { createElement, FC, useEffect } from 'react'
 import * as renderer from 'react-test-renderer'
-import { useStore } from './react'
+import { useStore } from '../src/react'
 
 test('Initialization should run only once', () => {
     let countInitialization = 0

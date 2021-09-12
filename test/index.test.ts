@@ -1,4 +1,4 @@
-import { Store } from './index'
+import { Store } from '../src/index'
 
 const store = new Store({
     uniqueKey: 'id',
