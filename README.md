@@ -73,7 +73,7 @@ store.delete()
 ```
 ## React Usage Example
 ```jsx
-import { useStore } from 'objects-manager/react'
+import { useStore } from 'objects-manager/dist/react'
 const Example = ()=> {
     // init store
     const users = useStore(()=> ({
